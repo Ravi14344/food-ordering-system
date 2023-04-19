@@ -1,0 +1,77 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+public class SignUpForm extends JFrame implements ActionListener {
+    private JLabel firstNameLabel, lastNameLabel, emailLabel, usernameLabel,passwordLabel, confirmPasswordLabel;
+    private JTextField firstNameField, lastNameField, emailField,usernameField;
+    private JPasswordField passwordField, confirmPasswordField;
+    private JButton signUpButton, resetButton;
+    public SignUpForm() {
+        setTitle("Sign Up Form");
+        setSize(500, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        firstNameLabel = new JLabel("First Name:");
+        lastNameLabel = new JLabel("Last Name:");
+        emailLabel = new JLabel("Email:");
+        usernameLabel = new JLabel("Username:");
+        passwordLabel = new JLabel("Password:");
+        confirmPasswordLabel = new JLabel("Confirm Password:");
+        firstNameField = new JTextField();
+        lastNameField = new JTextField();;
+        emailField = new JTextField();
+        usernameField = new JTextField();
+        passwordField = new JPasswordField();
+        confirmPasswordField = new JPasswordField();
+        signUpButton = new JButton("Sign Up");
+        signUpButton.addActionListener(this);
+        resetButton = new JButton("Reset");
+        resetButton.addActionListener(this);
+        JPanel signUpPanel = new JPanel(new GridLayout(7, 1));
+        signUpPanel.add(firstNameLabel);
+        signUpPanel.add(firstNameField);
+        signUpPanel.add(lastNameLabel);
+        signUpPanel.add(lastNameField);
+        signUpPanel.add(emailLabel);
+        signUpPanel.add(emailField);
+        signUpPanel.add(usernameLabel);
+        signUpPanel.add(usernameField);
+        signUpPanel.add(passwordLabel);
+        signUpPanel.add(passwordField);
+        signUpPanel.add(confirmPasswordLabel);
+        signUpPanel.add(confirmPasswordField);
+        signUpPanel.add(signUpButton);
+        signUpPanel.add(resetButton);
+        add(signUpPanel);
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == signUpButton) {
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String email = emailField.getText();
+            String username= usernameField.getText();
+            String password = new String(passwordField.getPassword());
+            String confirmPassword = new String(confirmPasswordField.getPassword());
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() ||username.isEmpty()|| password.isEmpty() || confirmPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (!password.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Sign up successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+            new Login();
+        } else if (e.getSource() == resetButton) {
+            firstNameField.setText("");
+            lastNameField.setText("");
+            emailField.setText("");
+            usernameField.setText("");
+            passwordField.setText("");
+            confirmPasswordField.setText("");
+        }
+    }
+    public static void main(String[] args) {
+        new SignUpForm();
+    }
+}
+
+
